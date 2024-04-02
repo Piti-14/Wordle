@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
-import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
+import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
 import { UIChanger } from "./UIChanger.js";
 export class Game {
     constructor(pickedWord) {
@@ -52,8 +52,9 @@ export class Game {
                 if (differenceOfCoincidences == 0 && __classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
                     isMisplacedLetter = false;
                 }
-                if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
+                if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter) {
                     __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
+                }
             }
         };
         this.checkWrongLetters = () => {
@@ -64,8 +65,9 @@ export class Game {
                 actualLetter = __classPrivateFieldGet(this, _Game_actualWord, "f")[i];
                 pattern = new RegExp(actualLetter, "g");
                 numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
-                if (numberOfCoincidencesPickedWord == 0)
+                if (numberOfCoincidencesPickedWord == 0) {
                     __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
+                }
             }
         };
         this.updateAfterANewWord = () => {
@@ -130,10 +132,12 @@ export class Game {
     }
     transformCodeToLetter(code) {
         let letter = "";
-        if (code == "Semicolon")
+        if (code == "Semicolon") {
             letter = "Ñ";
-        else
-            letter = code.split("y")[1];
+        }
+        else {
+            letter = code[length - 1];
+        }
         return letter;
     }
     newLetter(code) {
@@ -166,12 +170,15 @@ export class Game {
         }
     }
     newKeyPressed(code) {
-        if (this.isValidLetter(code))
+        if (this.isValidLetter(code)) {
             this.newLetter(code);
-        if (this.isEnterKey(code))
+        }
+        if (this.isEnterKey(code)) {
             this.enterPressed();
-        if (this.isBackspaceKey(code))
+        }
+        if (this.isBackspaceKey(code)) {
             this.backspacePressed();
+        }
         __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(code);
     }
 }

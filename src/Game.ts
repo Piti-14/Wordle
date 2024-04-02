@@ -76,13 +76,13 @@ export class Game {
 
     transformCodeToLetter(code: string): string {
         let letter: string = "";
-        
-        if (code == "Semicolon") { 
+
+        if (code == "Semicolon") {
             letter = "Ñ";
-        } else { 
-            letter = code.split("y")[1];
+        } else {
+            letter = code[length - 1];
         }
-        
+
         return letter;
     }
 
