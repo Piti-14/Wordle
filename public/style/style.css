@@ -30,7 +30,6 @@ h1 {
     border: none;
 }
 
-
 #main_container {
     display: grid;
     justify-items: center;
@@ -41,11 +40,13 @@ h1 {
     display: grid;
     grid-template-rows: repeat(6, 1fr);   
 }
+
 .row {  
     display: flex;
     flex-direction: row;
     flex-basis: content;
 }
+
 .col0, .col1, .col2, .col3, .col4 {
     background-color: chocolate;
 }
@@ -62,6 +63,7 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
 #keyboard {
     margin-top: 12vh;
 }
@@ -94,19 +96,21 @@ h1 {
     flex-basis: content;
     padding-top: .75rem;
 }
+
 .k-enter {
     min-width: fit-content;
-    
 }
 
 .cell-orange {
     background-color: #C9B459;
     color: white;
 }
+
 .cell-green {
     background-color: #6AAA64;
     color: #ffffff;
 }
+
 .cell-grey{
     background-color: #787C7E;
     color: #ffffff;
