@@ -1,4 +1,4 @@
-import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
+import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
 import { UIChanger } from "./UIChanger.js";
 
 export class Game {
