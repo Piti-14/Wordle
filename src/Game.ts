@@ -14,7 +14,7 @@ export class Game {
         this.#pickedWord = pickedWord;
         this.#actualWord = "";
         this.#turn = 1;
-        this.#actualPosition = 0;
+        this.#actualPosition = 0    ;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
         this.#userInterface = new UIChanger();
     }
@@ -80,7 +80,7 @@ export class Game {
         if (code == "Semicolon") {
             letter = "Ñ";
         } else {
-            letter = code[length - 1];
+            letter = code.split("y")[1];
         }
 
         return letter;
@@ -185,8 +185,8 @@ export class Game {
 
     newKeyPressed(code: string): void {
         if (this.isValidLetter(code)) { this.newLetter(code); }
-        if (this.isEnterKey(code)) { this.enterPressed(); }
-        if (this.isBackspaceKey(code)) { this.backspacePressed(); }
+        if (this.isEnterKey(code)) { this.enterPressed(); } //cambiar aquí
+        if (this.isBackspaceKey(code)) { this.backspacePressed(); } // cambiar aquí
         this.#userInterface.changeBackgroundKey(code);
     }
 }

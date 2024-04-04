@@ -136,7 +136,7 @@ export class Game {
             letter = "Ñ";
         }
         else {
-            letter = code[length - 1];
+            letter = code.split("y")[1];
         }
         return letter;
     }
