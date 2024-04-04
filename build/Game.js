@@ -10,8 +10,8 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
+import { Board } from "./Board.js";
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
-import { UIChanger } from "./UIChanger.js";
 export class Game {
     constructor(pickedWord) {
         _Game_pickedWord.set(this, void 0);
@@ -23,11 +23,21 @@ export class Game {
         this.checkRightLetters = () => {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "rightLetter");
-                }
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_turn, "f"), i, "rightLetter");
+                } //else if(this.#pickedWord[i] == this.#actualWord[i])
             }
         };
         this.checkMisplacedLetters = () => {
+            /* for(let i = 0; i < MAX_WORD_SIZE; i++){
+                let count = 0;
+                for(let j = 0; j < MAX_WORD_SIZE; j++){
+                    if(this.#actualWord[i] == this.#pickedWord[j]){
+                        count++
+                    }
+                }
+    
+                if(this.#actualWord.indexOf(this.#actualWord[i]))
+            } */
             let actualLetter = "";
             let pattern;
             let numberOfCoincidencesPickedWord = 0;
@@ -53,7 +63,7 @@ export class Game {
                     isMisplacedLetter = false;
                 }
                 if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
                 }
             }
         };
@@ -66,7 +76,7 @@ export class Game {
                 pattern = new RegExp(actualLetter, "g");
                 numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
                 if (numberOfCoincidencesPickedWord == 0) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
                 }
             }
         };
@@ -83,7 +93,7 @@ export class Game {
         __classPrivateFieldSet(this, _Game_turn, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
         __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
-        __classPrivateFieldSet(this, _Game_userInterface, new UIChanger(), "f");
+        __classPrivateFieldSet(this, _Game_userInterface, new Board(), "f");
     }
     get pickedWord() {
         return __classPrivateFieldGet(this, _Game_pickedWord, "f");
@@ -142,7 +152,7 @@ export class Game {
     }
     newLetter(code) {
         let letter = this.transformCodeToLetter(code);
-        __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letter);
+        __classPrivateFieldGet(this, _Game_userInterface, "f").writeLetter(this.turn, this.actualPosition, letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
         __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letter, "f");
     }
@@ -157,14 +167,15 @@ export class Game {
         }
     }
     enterPressed() {
-        if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
+        if (__classPrivateFieldGet(this, _Game_actualWord, "f").length >= MAX_WORD_SIZE) {
             this.checkWordIsRight();
             this.checkGameIsOver();
             this.updateAfterANewWord();
         }
     }
     backspacePressed() {
-        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
+        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") <= MAX_WORD_SIZE) {
+            __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f").slice(0, -1), "f");
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
@@ -175,11 +186,11 @@ export class Game {
         }
         if (this.isEnterKey(code)) {
             this.enterPressed();
-        }
+        } //cambiar aquí
         if (this.isBackspaceKey(code)) {
             this.backspacePressed();
-        }
-        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(code);
+        } // cambiar aquí
+        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKeyColor(code);
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();

@@ -1,3 +1,4 @@
+import { Board } from "./Board.js";
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
 import { UIChanger } from "./UIChanger.js";
 
@@ -8,7 +9,7 @@ export class Game {
     #turn: number
     #actualPosition: number
     #validLetterCodes: string[]
-    #userInterface: UIChanger
+    #userInterface: Board
 
     constructor(pickedWord: string) {
         this.#pickedWord = pickedWord;
@@ -16,7 +17,7 @@ export class Game {
         this.#turn = 1;
         this.#actualPosition = 0    ;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
-        this.#userInterface = new UIChanger();
+        this.#userInterface = new Board();
     }
 
     get pickedWord() {
@@ -88,7 +89,7 @@ export class Game {
 
     newLetter(code: string): void {
         let letter: string = this.transformCodeToLetter(code);
-        this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
+        this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
     }
@@ -102,12 +103,24 @@ export class Game {
     checkRightLetters = (): void => {
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (this.#pickedWord[i] == this.#actualWord[i]) {
-                this.#userInterface.changeBackgroundPosition(this.#turn, i, "rightLetter");
-            }
+                this.#userInterface.changeBackgroundCellColor(this.#turn, i, "rightLetter");
+            } //else if(this.#pickedWord[i] == this.#actualWord[i])
         }
     }
 
     checkMisplacedLetters = (): void => {
+        
+        /* for(let i = 0; i < MAX_WORD_SIZE; i++){
+            let count = 0;
+            for(let j = 0; j < MAX_WORD_SIZE; j++){
+                if(this.#actualWord[i] == this.#pickedWord[j]){
+                    count++
+                }
+            }
+
+            if(this.#actualWord.indexOf(this.#actualWord[i]))
+        } */
+        
         let actualLetter: string = "";
         let pattern: RegExp;
         let numberOfCoincidencesPickedWord: number = 0;
@@ -129,12 +142,15 @@ export class Game {
                     }
                 }
             }
+
             if (differenceOfCoincidences == 0 && this.#pickedWord[i] == this.#actualWord[i]) {
                 isMisplacedLetter = false;
             }
+            
             if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter) {
-                this.#userInterface.changeBackgroundPosition(this.#turn, i, "misplacedLetter");
-            }
+                this.#userInterface.changeBackgroundCellColor(this.#turn, i, "misplacedLetter");
+            } 
+
         }
     }
 
@@ -148,7 +164,7 @@ export class Game {
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern) || []).length;
 
             if (numberOfCoincidencesPickedWord == 0) {
-                this.#userInterface.changeBackgroundPosition(this.#turn, i, "wrongLetter");
+                this.#userInterface.changeBackgroundCellColor(this.#turn, i, "wrongLetter");
             }
         }
     }
@@ -169,7 +185,7 @@ export class Game {
     }
 
     enterPressed(): void {
-        if (this.#actualWord.length == MAX_WORD_SIZE) {
+        if (this.#actualWord.length >= MAX_WORD_SIZE) {
             this.checkWordIsRight();
             this.checkGameIsOver();
             this.updateAfterANewWord();
@@ -177,7 +193,8 @@ export class Game {
     }
 
     backspacePressed(): void {
-        if (this.#actualPosition > 0) {
+        if (this.#actualPosition <= MAX_WORD_SIZE) {
+            this.#actualWord = this.#actualWord.slice(0, -1)
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
         }
@@ -187,6 +204,6 @@ export class Game {
         if (this.isValidLetter(code)) { this.newLetter(code); }
         if (this.isEnterKey(code)) { this.enterPressed(); } //cambiar aquí
         if (this.isBackspaceKey(code)) { this.backspacePressed(); } // cambiar aquí
-        this.#userInterface.changeBackgroundKey(code);
+        this.#userInterface.changeBackgroundKeyColor(code);
     }
 }

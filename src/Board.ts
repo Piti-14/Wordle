@@ -1,6 +1,3 @@
-/* import { MAX_ATTEMPTS } from "./Env";
-import { MAX_WORD_SIZE } from "./Env"; */
-
 export class Board {
     writeLetter(attempt: number, cell: number, letter: string) {
         Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].textContent = letter;
@@ -19,7 +16,7 @@ export class Board {
         Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].classList.add(color);
     }
 
-    changeBackgroundKey(code: string) {
+    changeBackgroundKeyColor(code: string) {
         const keys: any = document.getElementsByClassName("key");
 
         for (let key of keys) {
