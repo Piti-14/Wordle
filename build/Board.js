@@ -7,6 +7,7 @@ export class Board {
     }
     changeBackgroundCellColor(attempt, cell, state) {
         let color = "cell-grey";
+        //Cambiar por interface
         if (state == "rightLetter")
             color = "cell-green";
         if (state == "misplacedLetter")

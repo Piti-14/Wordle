@@ -24,20 +24,10 @@ export class Game {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 if (__classPrivateFieldGet(this, _Game_secretWord, "f")[i] == __classPrivateFieldGet(this, _Game_userWord, "f")[i]) {
                     __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), i, "rightLetter");
-                } //else if(this.#pickedWord[i] == this.#actualWord[i])
+                }
             }
         };
         this.checkMisplacedLetters = () => {
-            /* for(let i = 0; i < MAX_WORD_SIZE; i++){
-                let count = 0;
-                for(let j = 0; j < MAX_WORD_SIZE; j++){
-                    if(this.#actualWord[i] == this.#pickedWord[j]){
-                        count++
-                    }
-                }
-    
-                if(this.#actualWord.indexOf(this.#actualWord[i]))
-            } */
             let actualLetter = "";
             let pattern;
             let numberOfCoincidencesPickedWord = 0;
@@ -93,7 +83,7 @@ export class Game {
         __classPrivateFieldSet(this, _Game_attempt, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
         //Añadidos Enter y Backspace, averiguar como hacerlo con Array.from(document...)
-        __classPrivateFieldSet(this, _Game_validLetterCodes, ["Enter", "Backspace", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+        __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
         __classPrivateFieldSet(this, _Game_userInterface, new Board(), "f");
     }
     get pickedWord() {
@@ -133,45 +123,23 @@ export class Game {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
     newKeyPressed(code) {
-        /* if(this.#validLetterCodes.includes(code)){
-            (code == "Enter")? this.enterPressed : (code == "Backspace")? this.backspacePressed
-        } */
-        if (this.isValidLetter(code)) {
+        if (__classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE) {
             this.newLetter(code);
         }
-        if (this.isEnterKey(code)) {
+        if (code == "Enter") {
             this.enterPressed();
-        } //cambiar aquí
-        if (this.isBackspaceKey(code)) {
+        }
+        if (code == "Backspace") {
             this.backspacePressed();
-        } // cambiar aquí
+        }
         __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKeyColor(code);
-    }
-    isValidLetter(code) {
-        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) /* && this.#actualPosition < MAX_WORD_SIZE */;
-    }
-    isEnterKey(code) {
-        return code == "Enter";
-    }
-    isBackspaceKey(code) {
-        return code == "Backspace";
     }
     newLetter(code) {
         var _a;
-        let letter = this.transformCodeToLetter(code);
+        let letter = (code == "Semicolon") ? "Ñ" : code.split("y")[1];
         __classPrivateFieldGet(this, _Game_userInterface, "f").writeLetter(this.turn, this.actualPosition, letter);
         __classPrivateFieldSet(this, _Game_actualPosition, (_a = __classPrivateFieldGet(this, _Game_actualPosition, "f"), _a++, _a), "f");
         __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f") + letter, "f");
-    }
-    transformCodeToLetter(code) {
-        let letter = "";
-        if (code == "Semicolon") {
-            letter = "Ñ";
-        }
-        else {
-            letter = code.split("y")[1];
-        }
-        return letter;
     }
     checkWordIsRight() {
         if (__classPrivateFieldGet(this, _Game_userWord, "f") == __classPrivateFieldGet(this, _Game_secretWord, "f")) {
@@ -191,7 +159,7 @@ export class Game {
         }
     }
     backspacePressed() {
-        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") <= MAX_WORD_SIZE) {
+        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
             __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f").slice(0, -1), "f");
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));

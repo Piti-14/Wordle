@@ -16,8 +16,7 @@ export class Game {
         this.#userWord = "";
         this.#attempt = 1;
         this.#actualPosition = 0;
-        //Añadidos Enter y Backspace, averiguar como hacerlo con Array.from(document...)
-        this.#validLetterCodes = ["Enter", "Backspace", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
+        this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
         this.#userInterface = new Board();
     }
 
@@ -167,7 +166,7 @@ export class Game {
     }
 
     backspacePressed(): void {
-        if (this.#actualPosition <= MAX_WORD_SIZE) {
+        if (this.#actualPosition > 0) {
             this.#userWord = this.#userWord.slice(0, -1)
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
