@@ -1,30 +1,23 @@
+import { Letter } from "./Letter";
+
 export class Word {
 
-    #words: string[];
+    #word: string;
 
-    constructor(wordsArray: string[]) {
-        this.#words = wordsArray;
+    constructor(word: string) {
+        this.#word = word;
     }
 
-    get words() {
-        return this.#words;
+    get word() {
+        return this.#word;
     }
 
-    set words(wordsArray: string[]) {
-        this.#words = wordsArray;
+    set word(word: string) {
+        this.#word = word;
     }
 
-    getRandomWord(): string {
-        const min = 0;
-        const max = this.#words.length - 1;
-
-        return this.#words[Math.trunc(Math.random() * (max - min + 1))]
-    }
-
-    //------------------
-
-    checkWordIsRight(): void {
-        if (this.#userWord == this.#secretWord) {
+    checkWordIsRight(userWord: string): void {
+        if (userWord == this.#word) {
             location.assign("/winner");
         }
     }

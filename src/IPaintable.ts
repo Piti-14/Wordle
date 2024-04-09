@@ -1,5 +1,3 @@
 interface IPaintable{
-    paint(): void{
-        
-    }
+    paint(): void
 }

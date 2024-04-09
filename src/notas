@@ -1,10 +1,12 @@
 Errores:
-Las letras no se pintan bien
-las letras del teclado no se deberían de pintar tal como lo hacen
-Cuando pones la palabra correcta en el ultimo intento, cuanta como perder la partida
+-Las letras no se pintan bien
+-Las letras del teclado no se deberían de pintar tal como
+lo hacen
+-Cuando pones la palabra correcta en el ultimo intento,
+cuanta como perder la partida
 
 Soluciones:
-Crear clase letra con sus metodos
-Word tendría un array de Letras (Word se queda...)
-En Game dejar solo sus responsabilidades (estado del juego)
-Intentar crear algunas clases/interfaces más (Key)
+-Crear clase letra con sus metodos
+-Word tendría un array de Letras (Word se queda...)
+-En Game dejar solo sus responsabilidades (estado del juego)
+-Intentar crear algunas clases/interfaces más (Key)

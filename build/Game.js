@@ -10,10 +10,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Game_secretWord, _Game_userWord, _Game_attempt, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
-import { Board } from "./Board.js";
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
 export class Game {
-    constructor(pickedWord) {
+    constructor(pickedWord, userInterface) {
         _Game_secretWord.set(this, void 0);
         _Game_userWord.set(this, void 0);
         _Game_attempt.set(this, void 0);
@@ -82,9 +81,8 @@ export class Game {
         __classPrivateFieldSet(this, _Game_userWord, "", "f");
         __classPrivateFieldSet(this, _Game_attempt, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
-        //Añadidos Enter y Backspace, averiguar como hacerlo con Array.from(document...)
         __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
-        __classPrivateFieldSet(this, _Game_userInterface, new Board(), "f");
+        __classPrivateFieldSet(this, _Game_userInterface, userInterface, "f");
     }
     get pickedWord() {
         return __classPrivateFieldGet(this, _Game_secretWord, "f");

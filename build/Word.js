@@ -26,5 +26,11 @@ export class Word {
         const max = __classPrivateFieldGet(this, _Word_words, "f").length - 1;
         return __classPrivateFieldGet(this, _Word_words, "f")[Math.trunc(Math.random() * (max - min + 1))];
     }
+    //------------------
+    checkWordIsRight() {
+        if (this. == this.) {
+            location.assign("/winner");
+        }
+    }
 }
 _Word_words = new WeakMap();

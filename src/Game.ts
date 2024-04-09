@@ -11,13 +11,13 @@ export class Game {
     #validLetterCodes: string[]
     #userInterface: Board
 
-    constructor(pickedWord: string) {
+    constructor(pickedWord: string, userInterface: Board) {
         this.#secretWord = pickedWord;
         this.#userWord = "";
         this.#attempt = 1;
         this.#actualPosition = 0;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
-        this.#userInterface = new Board();
+        this.#userInterface = userInterface;
     }
 
     get pickedWord() {
