@@ -20,4 +20,12 @@ export class Word {
 
         return this.#words[Math.trunc(Math.random() * (max - min + 1))]
     }
+
+    //------------------
+
+    checkWordIsRight(): void {
+        if (this.#userWord == this.#secretWord) {
+            location.assign("/winner");
+        }
+    }
 }
