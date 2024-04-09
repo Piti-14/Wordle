@@ -17,6 +17,7 @@ export class Key{
         if (code == "Backspace") { this.#gameInstance.backspacePressed(); }
         
        // this.#userInterface.changeBackgroundKeyColor(code);
+       this.#gameInstance.updateLetterColors();
     }
 
     /* enterPressed(): void {
