@@ -1,3 +1,0 @@
-interface IPaintable{
-    paint(): void
-}
