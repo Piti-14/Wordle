@@ -2,4 +2,4 @@
 Crear clase letra con sus metodos
 Word tendría un array de Letras (Word se queda...)
 En Game dejar solo sus responsabilidades (estado del juego)
-Intentar crear algunas clases más
+Intentar crear algunas clases/interfaces más (Key)
