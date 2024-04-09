@@ -83,9 +83,9 @@ export class Game {
             }
 
             this.#secretWord.check(this.#userWord);
+            
             this.updateLetterColors();
             this.updateAfterANewWord();
-            
         }
     }
 
@@ -99,9 +99,9 @@ export class Game {
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors(){
         this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#actualPosition, this.#userWord)
-    }
 
-    
+        //this.#userInterface.changeBackgroundKeyColor()
+    }
 
     updateAfterANewWord = (): void => {
         //Word es quien checkea las letras!

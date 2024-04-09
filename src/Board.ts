@@ -15,10 +15,14 @@ export class Board {
 
         let children = Array.from(document.getElementById(`row_${attempt}`)!.children)
 
-        //Cambiar por interface
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
 
-            (userWord.getWordLetters()[i].state == "rightLetter")? color = "cell-green" : color = "cell-orange";
+            if(userWord.getWordLetters()[i].state == "rightLetter") {
+                color = "cell-green";
+            } 
+            if(userWord.getWordLetters()[i].state == "misplacedLetter") {
+                color = "cell-orange"
+            }
             
             children[i].classList.add(color);
         }

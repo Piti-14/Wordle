@@ -37,9 +37,10 @@ export class Word {
     }
     check(otherWord) {
         let otherLetters = otherWord.getWordLetters();
+        debugger;
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
-                if (__classPrivateFieldGet(this, _Word_letters, "f")[i] == otherLetters[i]) {
+                if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherLetters[i].letter) {
                     otherLetters[i].state = "rightLetter";
                 }
                 else {

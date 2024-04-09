@@ -35,10 +35,10 @@ export class Word {
 
     check(otherWord: Word) { 
         let otherLetters = otherWord.getWordLetters()
-
+        debugger
         for(let i = 0; i < MAX_WORD_SIZE; i++){
             if(this.#word.includes(otherWord.word[i])){
-                if(this.#letters[i] == otherLetters[i]){
+                if(this.#letters[i].letter == otherLetters[i].letter){
                     otherLetters[i].state = "rightLetter";
                 } else {
                     otherLetters[i].state = "misplacedLetter";

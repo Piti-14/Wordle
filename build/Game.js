@@ -103,6 +103,7 @@ export class Game {
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors() {
         __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"), __classPrivateFieldGet(this, _Game_userWord, "f"));
+        //this.#userInterface.changeBackgroundKeyColor()
     }
 }
 _Game_secretWord = new WeakMap(), _Game_userWord = new WeakMap(), _Game_attempt = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();

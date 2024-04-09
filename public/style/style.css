@@ -102,17 +102,17 @@ h1 {
 }
 
 .cell-orange {
-    background-color: #C9B459;
+    background-color: orangered;
     color: white;
 }
 
 .cell-green {
-    background-color: #6AAA64;
+    background-color: green;
     color: #ffffff;
 }
 
 .cell-grey{
-    background-color: #787C7E;
+    background-color: grey;
     color: #ffffff;
 }
 
