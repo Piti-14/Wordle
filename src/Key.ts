@@ -1,16 +1,25 @@
+import { VALID_LETTER_CODES } from "./Env";
+import { Game } from "./Game";
+
 export class Key{
-
-    newKeyPressed(code: string): void {
-        if (this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE) { this.newLetter(code); }
-
-        if (code == "Enter") { this.enterPressed(); }
-        
-        if (code == "Backspace") { this.backspacePressed(); }
-        
-        this.#userInterface.changeBackgroundKeyColor(code);
+    
+    #gameInstance: Game
+    
+    constructor(game: Game){
+        this.#gameInstance = game;
     }
 
-    enterPressed(): void {
+    newKeyPressed(code: string): void {
+        if (VALID_LETTER_CODES.includes(code)) { this.#gameInstance.newLetter(code); }
+
+        if (code == "Enter") { this.#gameInstance.enterPressed(); }
+        
+        if (code == "Backspace") { this.#gameInstance.backspacePressed(); }
+        
+       // this.#userInterface.changeBackgroundKeyColor(code);
+    }
+
+    /* enterPressed(): void {
         if (this.#userWord.length >= MAX_WORD_SIZE) {
             this.checkWordIsRight();
             this.checkGameIsOver();
@@ -24,5 +33,5 @@ export class Key{
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
         }
-    }
+    } */
 }

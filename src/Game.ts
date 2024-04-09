@@ -1,22 +1,22 @@
 import { Board } from "./Board.js";
-import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
-import { UIChanger } from "./UIChanger.js";
+import { MAX_WORD_SIZE, MAX_ATTEMPTS, VALID_LETTER_CODES } from "./Env.js";
+import { Word } from "./Word.js";
 
 export class Game {
 
-    #secretWord: string
+    #secretWord: Word
     #userWord: string
     #attempt: number
     #actualPosition: number
     #validLetterCodes: string[]
     #userInterface: Board
 
-    constructor(pickedWord: string, userInterface: Board) {
-        this.#secretWord = pickedWord;
+    constructor(secretWord: Word, userInterface: Board) {
+        this.#secretWord = secretWord;
         this.#userWord = "";
         this.#attempt = 1;
         this.#actualPosition = 0;
-        this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
+        this.#validLetterCodes = VALID_LETTER_CODES;
         this.#userInterface = userInterface;
     }
 
@@ -62,7 +62,7 @@ export class Game {
         this.#userInterface = i;
     }
 
-    newKeyPressed(code: string): void {
+/*     newKeyPressed(code: string): void {
         if (this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE) { this.newLetter(code); }
 
         if (code == "Enter") { this.enterPressed(); }
@@ -70,7 +70,7 @@ export class Game {
         if (code == "Backspace") { this.backspacePressed(); }
         
         this.#userInterface.changeBackgroundKeyColor(code);
-    }
+    }*/
 
     newLetter(code: string): void {
         let letter: string = (code == "Semicolon")? "Ñ" : code.split("y")[1];
@@ -78,9 +78,10 @@ export class Game {
         this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition++;
         this.#userWord += letter;
-    }    
+    }
+    //Poner aquí métodos para cambiar el color del teclado en pantalla
 
-    checkWordIsRight(): void {
+   /* checkWordIsRight(): void {
         if (this.#userWord == this.#secretWord) {
             location.assign("/winner");
         }
@@ -140,7 +141,7 @@ export class Game {
                 this.#userInterface.changeBackgroundCellColor(this.#attempt, i, "wrongLetter");
             }
         }
-    }
+    } */
 
     updateAfterANewWord = (): void => {
         this.checkRightLetters();
@@ -151,7 +152,7 @@ export class Game {
         this.#userWord = "";
     }
 
-    checkGameIsOver(): void {
+     checkGameIsOver(): void {
         if (this.turn == MAX_ATTEMPTS) {
             location.assign("/loser");
         }
@@ -171,5 +172,5 @@ export class Game {
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
         }
-    }
+    } 
 }
