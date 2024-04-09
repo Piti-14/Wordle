@@ -10,78 +10,29 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Game_secretWord, _Game_userWord, _Game_attempt, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
-import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./Env.js";
+import { MAX_WORD_SIZE, MAX_ATTEMPTS, VALID_LETTER_CODES } from "./Env.js";
 export class Game {
-    constructor(pickedWord, userInterface) {
+    constructor(secretWord, userWord, userInterface) {
         _Game_secretWord.set(this, void 0);
         _Game_userWord.set(this, void 0);
         _Game_attempt.set(this, void 0);
         _Game_actualPosition.set(this, void 0);
         _Game_validLetterCodes.set(this, void 0);
         _Game_userInterface.set(this, void 0);
-        this.checkRightLetters = () => {
-            for (let i = 0; i < MAX_WORD_SIZE; i++) {
-                if (__classPrivateFieldGet(this, _Game_secretWord, "f")[i] == __classPrivateFieldGet(this, _Game_userWord, "f")[i]) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), i, "rightLetter");
-                }
-            }
-        };
-        this.checkMisplacedLetters = () => {
-            let actualLetter = "";
-            let pattern;
-            let numberOfCoincidencesPickedWord = 0;
-            let numberOfCoincidencesActualWord = 0;
-            let differenceOfCoincidences = 0;
-            let isMisplacedLetter = true;
-            for (let i = 0; i < MAX_WORD_SIZE; i++) {
-                isMisplacedLetter = true;
-                actualLetter = __classPrivateFieldGet(this, _Game_userWord, "f")[i];
-                pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_secretWord, "f").match(pattern) || []).length;
-                numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_userWord, "f").match(pattern) || []).length;
-                differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
-                if (differenceOfCoincidences == 1) {
-                    for (let j = 0; j < MAX_WORD_SIZE; j++) {
-                        if (__classPrivateFieldGet(this, _Game_secretWord, "f")[j] == actualLetter) {
-                            isMisplacedLetter = false;
-                            break;
-                        }
-                    }
-                }
-                if (differenceOfCoincidences == 0 && __classPrivateFieldGet(this, _Game_secretWord, "f")[i] == __classPrivateFieldGet(this, _Game_userWord, "f")[i]) {
-                    isMisplacedLetter = false;
-                }
-                if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), i, "misplacedLetter");
-                }
-            }
-        };
-        this.checkWrongLetters = () => {
-            let actualLetter = "";
-            let pattern;
-            let numberOfCoincidencesPickedWord = 0;
-            for (let i = 0; i < MAX_WORD_SIZE; i++) {
-                actualLetter = __classPrivateFieldGet(this, _Game_userWord, "f")[i];
-                pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_secretWord, "f").match(pattern) || []).length;
-                if (numberOfCoincidencesPickedWord == 0) {
-                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), i, "wrongLetter");
-                }
-            }
-        };
         this.updateAfterANewWord = () => {
-            this.checkRightLetters();
+            //Word es quien checkea las letras!
+            /* this.#secretWord.checkRightLetters();
             this.checkMisplacedLetters();
-            this.checkWrongLetters();
+            this.checkWrongLetters(); */
             __classPrivateFieldSet(this, _Game_attempt, __classPrivateFieldGet(this, _Game_attempt, "f") + 1, "f");
             __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
             __classPrivateFieldSet(this, _Game_userWord, "", "f");
         };
-        __classPrivateFieldSet(this, _Game_secretWord, pickedWord, "f");
-        __classPrivateFieldSet(this, _Game_userWord, "", "f");
+        __classPrivateFieldSet(this, _Game_secretWord, secretWord, "f");
+        __classPrivateFieldSet(this, _Game_userWord, userWord, "f");
         __classPrivateFieldSet(this, _Game_attempt, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
-        __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+        __classPrivateFieldSet(this, _Game_validLetterCodes, VALID_LETTER_CODES, "f");
         __classPrivateFieldSet(this, _Game_userInterface, userInterface, "f");
     }
     get pickedWord() {
@@ -120,47 +71,35 @@ export class Game {
     set interface(i) {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
-    newKeyPressed(code) {
-        if (__classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE) {
-            this.newLetter(code);
-        }
-        if (code == "Enter") {
-            this.enterPressed();
-        }
-        if (code == "Backspace") {
-            this.backspacePressed();
-        }
-        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKeyColor(code);
-    }
     newLetter(code) {
         var _a;
-        let letter = (code == "Semicolon") ? "Ñ" : code.split("y")[1];
-        __classPrivateFieldGet(this, _Game_userInterface, "f").writeLetter(this.turn, this.actualPosition, letter);
-        __classPrivateFieldSet(this, _Game_actualPosition, (_a = __classPrivateFieldGet(this, _Game_actualPosition, "f"), _a++, _a), "f");
-        __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f") + letter, "f");
-    }
-    checkWordIsRight() {
-        if (__classPrivateFieldGet(this, _Game_userWord, "f") == __classPrivateFieldGet(this, _Game_secretWord, "f")) {
-            location.assign("/winner");
-        }
-    }
-    checkGameIsOver() {
-        if (this.turn == MAX_ATTEMPTS) {
-            location.assign("/loser");
+        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE) {
+            let letter = (code == "Semicolon") ? "Ñ" : code.split("y")[1];
+            __classPrivateFieldGet(this, _Game_userInterface, "f").writeLetter(this.turn, this.actualPosition, letter);
+            __classPrivateFieldSet(this, _Game_actualPosition, (_a = __classPrivateFieldGet(this, _Game_actualPosition, "f"), _a++, _a), "f");
+            __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f") + letter, "f");
         }
     }
     enterPressed() {
-        if (__classPrivateFieldGet(this, _Game_userWord, "f").length >= MAX_WORD_SIZE) {
-            this.checkWordIsRight();
+        if (__classPrivateFieldGet(this, _Game_userWord, "f").word.length >= MAX_WORD_SIZE) {
+            __classPrivateFieldGet(this, _Game_secretWord, "f").checkWordIsRight(__classPrivateFieldGet(this, _Game_userWord, "f").word);
             this.checkGameIsOver();
             this.updateAfterANewWord();
         }
     }
     backspacePressed() {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
-            __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f").slice(0, -1), "f");
+            __classPrivateFieldGet(this, _Game_userWord, "f").word = __classPrivateFieldGet(this, _Game_userWord, "f").word.slice(0, -1);
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
+        }
+    }
+    //Poner aquí métodos para cambiar el color del teclado en pantalla
+    updateLetterColors() {
+    }
+    checkGameIsOver() {
+        if (this.turn == MAX_ATTEMPTS) {
+            location.assign("/loser");
         }
     }
 }

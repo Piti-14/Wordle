@@ -5,15 +5,15 @@ import { Word } from "./Word.js";
 export class Game {
 
     #secretWord: Word
-    #userWord: string
+    #userWord: Word
     #attempt: number
     #actualPosition: number
     #validLetterCodes: string[]
     #userInterface: Board
 
-    constructor(secretWord: Word, userInterface: Board) {
+    constructor(secretWord: Word, userWord: Word, userInterface: Board) {
         this.#secretWord = secretWord;
-        this.#userWord = "";
+        this.#userWord = userWord;
         this.#attempt = 1;
         this.#actualPosition = 0;
         this.#validLetterCodes = VALID_LETTER_CODES;
@@ -72,6 +72,21 @@ export class Game {
         }
     }
 
+    enterPressed(): void {
+        if (this.#userWord.word.length >= MAX_WORD_SIZE) {
+            this.#secretWord.checkWordIsRight(this.#userWord.word);
+            this.checkGameIsOver();
+            this.updateAfterANewWord();
+        }
+    }
+
+    backspacePressed(): void {
+        if (this.#actualPosition > 0) {
+            this.#userWord.word = this.#userWord.word.slice(0, -1)
+            this.#actualPosition -= 1;
+            this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
+        }
+    }
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors(){
 
@@ -95,19 +110,5 @@ export class Game {
         }
     }
 
-    enterPressed(): void {
-        if (this.#userWord.length >= MAX_WORD_SIZE) {
-            this.#secretWord.checkWordIsRight(this.#userWord);
-            this.checkGameIsOver();
-            this.updateAfterANewWord();
-        }
-    }
-
-    backspacePressed(): void {
-        if (this.#actualPosition > 0) {
-            this.#userWord = this.#userWord.slice(0, -1)
-            this.#actualPosition -= 1;
-            this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
-        }
-    } 
+ 
 }

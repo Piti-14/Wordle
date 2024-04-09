@@ -9,28 +9,31 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Word_words;
+var _Word_word, _Word_letters;
 export class Word {
-    constructor(wordsArray) {
-        _Word_words.set(this, void 0);
-        __classPrivateFieldSet(this, _Word_words, wordsArray, "f");
+    constructor(word) {
+        _Word_word.set(this, void 0);
+        _Word_letters.set(this, void 0);
+        __classPrivateFieldSet(this, _Word_word, word, "f");
+        __classPrivateFieldSet(this, _Word_letters, getWordLetters(), "f");
     }
-    get words() {
-        return __classPrivateFieldGet(this, _Word_words, "f");
+    get word() {
+        return __classPrivateFieldGet(this, _Word_word, "f");
     }
-    set words(wordsArray) {
-        __classPrivateFieldSet(this, _Word_words, wordsArray, "f");
+    set word(word) {
+        __classPrivateFieldSet(this, _Word_word, word, "f");
     }
-    getRandomWord() {
-        const min = 0;
-        const max = __classPrivateFieldGet(this, _Word_words, "f").length - 1;
-        return __classPrivateFieldGet(this, _Word_words, "f")[Math.trunc(Math.random() * (max - min + 1))];
+    repeatedLetters() {
+        for (let letter of __classPrivateFieldGet(this, _Word_word, "f")) {
+        }
     }
-    //------------------
-    checkWordIsRight() {
-        if (this. == this.) {
+    checkWordIsRight(userWord) {
+        if (userWord == __classPrivateFieldGet(this, _Word_word, "f")) {
             location.assign("/winner");
         }
     }
+    getWordLetters() {
+        throw new Error("Function not implemented.");
+    }
 }
-_Word_words = new WeakMap();
+_Word_word = new WeakMap(), _Word_letters = new WeakMap();
