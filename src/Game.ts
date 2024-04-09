@@ -63,11 +63,13 @@ export class Game {
     }
 
     newLetter(code: string): void {
-        let letter: string = (code == "Semicolon")? "Ñ" : code.split("y")[1];
+        if(this.#actualPosition < MAX_WORD_SIZE){
+            let letter: string = (code == "Semicolon")? "Ñ" : code.split("y")[1];
         
-        this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
-        this.#actualPosition++;
-        this.#userWord += letter;
+            this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
+            this.#actualPosition++;
+            this.#userWord += letter;
+        }
     }
 
     //Poner aquí métodos para cambiar el color del teclado en pantalla
@@ -78,9 +80,10 @@ export class Game {
     
 
     updateAfterANewWord = (): void => {
-        this.checkRightLetters();
+        //Word es quien checkea las letras!
+        /* this.#secretWord.checkRightLetters();
         this.checkMisplacedLetters();
-        this.checkWrongLetters();
+        this.checkWrongLetters(); */
         this.#attempt = this.#attempt + 1;
         this.#actualPosition = 0;
         this.#userWord = "";
