@@ -1,5 +1,5 @@
 import { Board } from "./Board.js";
-import { MAX_WORD_SIZE, MAX_ATTEMPTS, VALID_LETTER_CODES } from "./Env.js";
+import { MAX_ATTEMPTS, MAX_WORD_SIZE, VALID_LETTER_CODES } from "./env.js";
 import { Word } from "./Word.js";
 
 export class Game {
@@ -68,15 +68,24 @@ export class Game {
         
             this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
             this.#actualPosition++;
-            this.#userWord += letter;
+            this.#userWord.word += letter;
         }
     }
 
     enterPressed(): void {
         if (this.#userWord.word.length >= MAX_WORD_SIZE) {
-            this.#secretWord.checkWordIsRight(this.#userWord.word);
-            this.checkGameIsOver();
+            if(this.#secretWord.wordIsRight(this.#userWord.word)){
+                this.#userInterface.win();
+            }
+
+            if (this.turn == MAX_ATTEMPTS) {
+                this.#userInterface.lose();
+            }
+
+            this.#secretWord.check(this.#userWord);
+            this.updateLetterColors();
             this.updateAfterANewWord();
+            
         }
     }
 
@@ -89,7 +98,7 @@ export class Game {
     }
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors(){
-
+        this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#actualPosition, this.#userWord)
     }
 
     
@@ -101,14 +110,6 @@ export class Game {
         this.checkWrongLetters(); */
         this.#attempt = this.#attempt + 1;
         this.#actualPosition = 0;
-        this.#userWord = "";
-    }
-
-     checkGameIsOver(): void {
-        if (this.turn == MAX_ATTEMPTS) {
-            location.assign("/loser");
-        }
-    }
-
- 
+        this.#userWord.word = "";
+    } 
 }

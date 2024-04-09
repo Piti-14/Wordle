@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Game_secretWord, _Game_userWord, _Game_attempt, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
-import { MAX_WORD_SIZE, MAX_ATTEMPTS, VALID_LETTER_CODES } from "./Env.js";
+import { MAX_ATTEMPTS, MAX_WORD_SIZE, VALID_LETTER_CODES } from "./env.js";
 export class Game {
     constructor(secretWord, userWord, userInterface) {
         _Game_secretWord.set(this, void 0);
@@ -26,7 +26,7 @@ export class Game {
             this.checkWrongLetters(); */
             __classPrivateFieldSet(this, _Game_attempt, __classPrivateFieldGet(this, _Game_attempt, "f") + 1, "f");
             __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
-            __classPrivateFieldSet(this, _Game_userWord, "", "f");
+            __classPrivateFieldGet(this, _Game_userWord, "f").word = "";
         };
         __classPrivateFieldSet(this, _Game_secretWord, secretWord, "f");
         __classPrivateFieldSet(this, _Game_userWord, userWord, "f");
@@ -77,13 +77,19 @@ export class Game {
             let letter = (code == "Semicolon") ? "Ñ" : code.split("y")[1];
             __classPrivateFieldGet(this, _Game_userInterface, "f").writeLetter(this.turn, this.actualPosition, letter);
             __classPrivateFieldSet(this, _Game_actualPosition, (_a = __classPrivateFieldGet(this, _Game_actualPosition, "f"), _a++, _a), "f");
-            __classPrivateFieldSet(this, _Game_userWord, __classPrivateFieldGet(this, _Game_userWord, "f") + letter, "f");
+            __classPrivateFieldGet(this, _Game_userWord, "f").word += letter;
         }
     }
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_userWord, "f").word.length >= MAX_WORD_SIZE) {
-            __classPrivateFieldGet(this, _Game_secretWord, "f").checkWordIsRight(__classPrivateFieldGet(this, _Game_userWord, "f").word);
-            this.checkGameIsOver();
+            if (__classPrivateFieldGet(this, _Game_secretWord, "f").wordIsRight(__classPrivateFieldGet(this, _Game_userWord, "f").word)) {
+                __classPrivateFieldGet(this, _Game_userInterface, "f").win();
+            }
+            if (this.turn == MAX_ATTEMPTS) {
+                __classPrivateFieldGet(this, _Game_userInterface, "f").lose();
+            }
+            __classPrivateFieldGet(this, _Game_secretWord, "f").check(__classPrivateFieldGet(this, _Game_userWord, "f"));
+            this.updateLetterColors();
             this.updateAfterANewWord();
         }
     }
@@ -96,11 +102,7 @@ export class Game {
     }
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors() {
-    }
-    checkGameIsOver() {
-        if (this.turn == MAX_ATTEMPTS) {
-            location.assign("/loser");
-        }
+        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"), __classPrivateFieldGet(this, _Game_userWord, "f"));
     }
 }
 _Game_secretWord = new WeakMap(), _Game_userWord = new WeakMap(), _Game_attempt = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();

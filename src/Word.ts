@@ -1,13 +1,14 @@
-import { Letter } from "./Letters";
+import { MAX_WORD_SIZE } from "./env.js";
+import { Letter } from "./Letter.js";
 
 export class Word {
 
     #word: string;
-    #letters: Letters;
+    #letters: Letter[];
 
     constructor(word: string) {
         this.#word = word;
-        this.#letters = getWordLetters();
+        this.#letters = this.getWordLetters();
     }
 
     get word() {
@@ -18,26 +19,31 @@ export class Word {
         this.#word = word;
     }
 
-    repeatedLetters(): void {
-        for(let letter of this.#word){
+    getWordLetters(): Letter[] {
+        let letters: Letter[] = [];
 
+        for (let letter of this.#word) {
+            letters.push(new Letter(letter));
         }
+
+        return letters;
     }
 
-    checkWordIsRight(userWord: string): void {
-        if (userWord == this.#word) {
-            location.assign("/winner");
-        }
+    wordIsRight(userWord: string): boolean {
+        return (userWord == this.#word)
     }
 
-    getWordLetters(): Letters {
-        let letters: string[];
+    check(otherWord: Word) { 
+        let otherLetters = otherWord.getWordLetters()
 
-        for(let letter of this.#word){
-            letters.push(letter);
+        for(let i = 0; i < MAX_WORD_SIZE; i++){
+            if(this.#word.includes(otherWord.word[i])){
+                if(this.#letters[i] == otherLetters[i]){
+                    otherLetters[i].state = "rightLetter";
+                } else {
+                    otherLetters[i].state = "misplacedLetter";
+                }
+            }
         }
-
-        return new Letters(letters);
     }
 }
-

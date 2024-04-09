@@ -2,13 +2,18 @@
 export class Letter{
 
     #letter: string;
+    #state: string = "";
 
     constructor(letter: string) {
         this.#letter = letter;
     }
 
-    getLetter(): string {
+    get letter(): string {
         return this.#letter;
+    }
+
+    set state(s: string){
+        this.#state = s;
     }
 }
 /*    
@@ -31,17 +36,25 @@ export class Letter{
     checkMisplacedLetters = (): void => {
         let actualLetter: string = "";
         let pattern: RegExp;
+        
         let numberOfCoincidencesPickedWord: number = 0;
         let numberOfCoincidencesActualWord: number = 0;
+        
         let differenceOfCoincidences: number = 0;
+        
         let isMisplacedLetter: boolean = true;
+
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             isMisplacedLetter = true;
+
             actualLetter = this.#userWord[i];
+            
             pattern = new RegExp(actualLetter, "g");
             numberOfCoincidencesPickedWord = (this.#secretWord.match(pattern) || []).length;
             numberOfCoincidencesActualWord = (this.#userWord.match(pattern) || []).length;
+            
             differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
+            
             if (differenceOfCoincidences == 1) {
                 for (let j = 0; j < MAX_WORD_SIZE; j++) {
                     if (this.#secretWord[j] == actualLetter) {

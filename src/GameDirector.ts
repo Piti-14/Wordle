@@ -1,4 +1,4 @@
-import { MAX_WORD_SIZE, VALID_LETTER_CODES } from "./Env.js"
+import { MAX_WORD_SIZE, VALID_LETTER_CODES } from "./env.js"
 
 export class GameDirector {
     isLetterValid(letter: string): boolean {

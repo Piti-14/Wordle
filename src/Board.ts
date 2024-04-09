@@ -1,3 +1,6 @@
+import { MAX_WORD_SIZE } from "./env.js";
+import { Word } from "./Word.js";
+
 export class Board {
     writeLetter(attempt: number, cell: number, letter: string) {
         Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].textContent = letter;
@@ -7,14 +10,19 @@ export class Board {
         Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].textContent = "";
     }
 
-    changeBackgroundCellColor(attempt: number, cell: number, state: string) {
+    changeBackgroundCellColor(attempt: number, cell: number, userWord: Word) {
         let color = "cell-grey";
 
-        //Cambiar por interface
-        if (state == "rightLetter") color = "cell-green";
-        if (state == "misplacedLetter") color = "cell-orange";
+        let children = Array.from(document.getElementById(`row_${attempt}`)!.children)
 
-        Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].classList.add(color);
+        //Cambiar por interface
+        for (let i = 0; i < MAX_WORD_SIZE; i++) {
+
+            (userWord.getWordLetters()[i].state == "rightLetter")? color = "cell-green" : color = "cell-orange";
+            
+            children[i].classList.add(color);
+        }
+
     }
 
     changeBackgroundKeyColor(code: string) {
@@ -26,4 +34,8 @@ export class Board {
             }
         }
     }
+
+    win(){ location.assign("/winner"); }
+
+    lose(){ location.assign("/loser"); }
 }

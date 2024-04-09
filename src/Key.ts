@@ -1,5 +1,5 @@
-import { VALID_LETTER_CODES } from "./Env";
-import { Game } from "./Game";
+import { VALID_LETTER_CODES } from "./env.js";
+import { Game } from "./Game.js";
 
 export class Key{
     
@@ -17,22 +17,6 @@ export class Key{
         if (code == "Backspace") { this.#gameInstance.backspacePressed(); }
         
        // this.#userInterface.changeBackgroundKeyColor(code);
-       this.#gameInstance.updateLetterColors();
+       
     }
-
-    /* enterPressed(): void {
-        if (this.#userWord.length >= MAX_WORD_SIZE) {
-            this.checkWordIsRight();
-            this.checkGameIsOver();
-            this.updateAfterANewWord();
-        }
-    }
-
-    backspacePressed(): void {
-        if (this.#actualPosition > 0) {
-            this.#userWord = this.#userWord.slice(0, -1)
-            this.#actualPosition -= 1;
-            this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
-        }
-    } */
 }

@@ -10,12 +10,14 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Word_word, _Word_letters;
+import { MAX_WORD_SIZE } from "./env.js";
+import { Letter } from "./Letter.js";
 export class Word {
     constructor(word) {
         _Word_word.set(this, void 0);
         _Word_letters.set(this, void 0);
         __classPrivateFieldSet(this, _Word_word, word, "f");
-        __classPrivateFieldSet(this, _Word_letters, getWordLetters(), "f");
+        __classPrivateFieldSet(this, _Word_letters, this.getWordLetters(), "f");
     }
     get word() {
         return __classPrivateFieldGet(this, _Word_word, "f");
@@ -23,17 +25,28 @@ export class Word {
     set word(word) {
         __classPrivateFieldSet(this, _Word_word, word, "f");
     }
-    repeatedLetters() {
-        for (let letter of __classPrivateFieldGet(this, _Word_word, "f")) {
-        }
-    }
-    checkWordIsRight(userWord) {
-        if (userWord == __classPrivateFieldGet(this, _Word_word, "f")) {
-            location.assign("/winner");
-        }
-    }
     getWordLetters() {
-        throw new Error("Function not implemented.");
+        let letters = [];
+        for (let letter of __classPrivateFieldGet(this, _Word_word, "f")) {
+            letters.push(new Letter(letter));
+        }
+        return letters;
+    }
+    wordIsRight(userWord) {
+        return (userWord == __classPrivateFieldGet(this, _Word_word, "f"));
+    }
+    check(otherWord) {
+        let otherLetters = otherWord.getWordLetters();
+        for (let i = 0; i < MAX_WORD_SIZE; i++) {
+            if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
+                if (__classPrivateFieldGet(this, _Word_letters, "f")[i] == otherLetters[i]) {
+                    otherLetters[i].state = "rightLetter";
+                }
+                else {
+                    otherLetters[i].state = "misplacedLetter";
+                }
+            }
+        }
     }
 }
 _Word_word = new WeakMap(), _Word_letters = new WeakMap();
