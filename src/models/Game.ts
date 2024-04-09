@@ -1,5 +1,5 @@
-import { Board } from "./Board.js";
-import { MAX_ATTEMPTS, MAX_WORD_SIZE, VALID_LETTER_CODES } from "./env.js";
+import { Board } from "../controllers/Board.js";
+import { MAX_ATTEMPTS, MAX_WORD_SIZE, VALID_LETTER_CODES } from "../env.js";
 import { Word } from "./Word.js";
 
 export class Game {

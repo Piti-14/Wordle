@@ -1,5 +1,5 @@
-import { MAX_WORD_SIZE } from "./env.js";
-import { Word } from "./Word.js";
+import { MAX_WORD_SIZE } from "../env.js";
+import { Word } from "../models/Word.js";
 
 export class Board {
     writeLetter(attempt: number, cell: number, letter: string) {

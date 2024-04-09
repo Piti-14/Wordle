@@ -1,4 +1,4 @@
-import { MAX_WORD_SIZE } from "./env.js";
+import { MAX_WORD_SIZE } from "../env.js";
 import { Letter } from "./Letter.js";
 
 export class Word {

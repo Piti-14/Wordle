@@ -1,4 +1,4 @@
-import { VALID_LETTER_CODES } from "./env.js";
+import { VALID_LETTER_CODES } from "../env.js";
 import { Game } from "./Game.js";
 
 export class Key{
