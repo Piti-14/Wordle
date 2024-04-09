@@ -25,6 +25,12 @@ export class Word {
     set word(word) {
         __classPrivateFieldSet(this, _Word_word, word, "f");
     }
+    get letters() {
+        return __classPrivateFieldGet(this, _Word_letters, "f");
+    }
+    set letters(letters) {
+        __classPrivateFieldSet(this, _Word_letters, letters, "f");
+    }
     getWordLetters() {
         let letters = [];
         for (let letter of __classPrivateFieldGet(this, _Word_word, "f")) {
@@ -36,15 +42,15 @@ export class Word {
         return (userWord == __classPrivateFieldGet(this, _Word_word, "f"));
     }
     check(otherWord) {
-        let otherLetters = otherWord.getWordLetters();
-        debugger;
+        otherWord.letters = otherWord.getWordLetters();
+        //debugger
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
-                if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherLetters[i].letter) {
-                    otherLetters[i].state = "rightLetter";
+                if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherWord.letters[i].letter) {
+                    otherWord.letters[i].state = "rightLetter";
                 }
                 else {
-                    otherLetters[i].state = "misplacedLetter";
+                    otherWord.letters[i].state = "misplacedLetter";
                 }
             }
         }

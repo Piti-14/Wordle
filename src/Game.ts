@@ -20,17 +20,17 @@ export class Game {
         this.#userInterface = userInterface;
     }
 
-    get pickedWord() {
+    get secretWord() {
         return this.#secretWord;
     }
-    set pickedWord(word) {
+    set secretWord(word) {
         this.#secretWord = word;
     }
 
-    get actualWord() {
+    get userWord() {
         return this.#userWord;
     }
-    set actualWord(word) {
+    set userWord(word) {
         this.#userWord = word;
     }
 
@@ -64,6 +64,7 @@ export class Game {
 
     newLetter(code: string): void {
         if(this.#actualPosition < MAX_WORD_SIZE){
+            
             let letter: string = (code == "Semicolon")? "Ñ" : code.split("y")[1];
         
             this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
@@ -98,7 +99,7 @@ export class Game {
     }
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors(){
-        this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#actualPosition, this.#userWord)
+        this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#userWord)
 
         //this.#userInterface.changeBackgroundKeyColor()
     }

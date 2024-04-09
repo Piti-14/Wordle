@@ -13,11 +13,15 @@ var _Letter_letter, _Letter_state;
 export class Letter {
     constructor(letter) {
         _Letter_letter.set(this, void 0);
-        _Letter_state.set(this, "");
+        _Letter_state.set(this, void 0);
         __classPrivateFieldSet(this, _Letter_letter, letter, "f");
+        __classPrivateFieldSet(this, _Letter_state, "wrongLetter", "f");
     }
     get letter() {
         return __classPrivateFieldGet(this, _Letter_letter, "f");
+    }
+    get state() {
+        return __classPrivateFieldGet(this, _Letter_state, "f");
     }
     set state(s) {
         __classPrivateFieldSet(this, _Letter_state, s, "f");

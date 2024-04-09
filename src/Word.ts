@@ -19,6 +19,14 @@ export class Word {
         this.#word = word;
     }
 
+    get letters(){
+        return this.#letters;
+    }
+
+    set letters(letters: Letter[]){
+        this.#letters = letters;
+    }
+
     getWordLetters(): Letter[] {
         let letters: Letter[] = [];
 
@@ -34,14 +42,14 @@ export class Word {
     }
 
     check(otherWord: Word) { 
-        let otherLetters = otherWord.getWordLetters()
-        debugger
+        otherWord.letters = otherWord.getWordLetters()
+        //debugger
         for(let i = 0; i < MAX_WORD_SIZE; i++){
             if(this.#word.includes(otherWord.word[i])){
-                if(this.#letters[i].letter == otherLetters[i].letter){
-                    otherLetters[i].state = "rightLetter";
+                if(this.#letters[i].letter == otherWord.letters[i].letter){
+                    otherWord.letters[i].state = "rightLetter";
                 } else {
-                    otherLetters[i].state = "misplacedLetter";
+                    otherWord.letters[i].state = "misplacedLetter";
                 }
             }
         }

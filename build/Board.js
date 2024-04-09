@@ -6,14 +6,15 @@ export class Board {
     deleteLetter(attempt, cell) {
         Array.from(document.getElementById(`row_${attempt}`).children)[cell].textContent = "";
     }
-    changeBackgroundCellColor(attempt, cell, userWord) {
-        let color = "cell-grey";
+    changeBackgroundCellColor(attempt, userWord) {
+        debugger;
         let children = Array.from(document.getElementById(`row_${attempt}`).children);
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
-            if (userWord.getWordLetters()[i].state == "rightLetter") {
+            let color = "cell-grey";
+            if (userWord.letters[i].state == "rightLetter") {
                 color = "cell-green";
             }
-            if (userWord.getWordLetters()[i].state == "misplacedLetter") {
+            if (userWord.letters[i].state == "misplacedLetter") {
                 color = "cell-orange";
             }
             children[i].classList.add(color);

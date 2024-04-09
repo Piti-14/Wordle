@@ -35,16 +35,16 @@ export class Game {
         __classPrivateFieldSet(this, _Game_validLetterCodes, VALID_LETTER_CODES, "f");
         __classPrivateFieldSet(this, _Game_userInterface, userInterface, "f");
     }
-    get pickedWord() {
+    get secretWord() {
         return __classPrivateFieldGet(this, _Game_secretWord, "f");
     }
-    set pickedWord(word) {
+    set secretWord(word) {
         __classPrivateFieldSet(this, _Game_secretWord, word, "f");
     }
-    get actualWord() {
+    get userWord() {
         return __classPrivateFieldGet(this, _Game_userWord, "f");
     }
-    set actualWord(word) {
+    set userWord(word) {
         __classPrivateFieldSet(this, _Game_userWord, word, "f");
     }
     get turn() {
@@ -102,7 +102,7 @@ export class Game {
     }
     //Poner aquí métodos para cambiar el color del teclado en pantalla
     updateLetterColors() {
-        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"), __classPrivateFieldGet(this, _Game_userWord, "f"));
+        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundCellColor(__classPrivateFieldGet(this, _Game_attempt, "f"), __classPrivateFieldGet(this, _Game_userWord, "f"));
         //this.#userInterface.changeBackgroundKeyColor()
     }
 }

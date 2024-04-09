@@ -10,17 +10,18 @@ export class Board {
         Array.from(document.getElementById(`row_${attempt}`)!.children)[cell].textContent = "";
     }
 
-    changeBackgroundCellColor(attempt: number, cell: number, userWord: Word) {
-        let color = "cell-grey";
-
+    changeBackgroundCellColor(attempt: number, userWord: Word) {
+        debugger
+        
         let children = Array.from(document.getElementById(`row_${attempt}`)!.children)
 
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
-
-            if(userWord.getWordLetters()[i].state == "rightLetter") {
+            let color = "cell-grey";
+            
+            if(userWord.letters[i].state == "rightLetter") {
                 color = "cell-green";
             } 
-            if(userWord.getWordLetters()[i].state == "misplacedLetter") {
+            if(userWord.letters[i].state == "misplacedLetter") {
                 color = "cell-orange"
             }
             
