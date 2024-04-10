@@ -1,4 +1,4 @@
-import { MAX_WORD_SIZE } from "./env.js";
+import { MAX_WORD_SIZE } from "../env.js";
 export class Board {
     writeLetter(attempt, cell, letter) {
         Array.from(document.getElementById(`row_${attempt}`).children)[cell].textContent = letter;
@@ -15,17 +15,30 @@ export class Board {
                 color = "cell-green";
             }
             if (userWord.letters[i].state == "misplacedLetter") {
-                color = "cell-orange";
+                color = "cell-yellow";
             }
             children[i].classList.add(color);
         }
     }
-    changeBackgroundKeyColor(code) {
+    changeBackgroundKeyColor(userWord) {
         const keys = document.getElementsByClassName("key");
         for (let key of keys) {
-            if (key.value == code && code !== "Enter" && code !== "Backspace") {
-                key.classList.add("keyPressed");
-            }
+            userWord.letters.forEach(letter => {
+                if (key.innerHTML == letter.letter && letter.letter !== "Enter" && letter.letter !== "Backspace") {
+                    let keyColor = "";
+                    switch (letter.state) {
+                        case "wrongLetter":
+                            keyColor = "keyPressed";
+                            break;
+                        case "rightLetter":
+                            keyColor = "keyCorrect";
+                            break;
+                        case "misplacedLetter":
+                            keyColor = "keyDiscovered";
+                    }
+                    key.classList.add(keyColor);
+                }
+            });
         }
     }
     win() { location.assign("/winner"); }

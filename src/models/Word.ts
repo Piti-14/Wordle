@@ -19,11 +19,11 @@ export class Word {
         this.#word = word;
     }
 
-    get letters(){
+    get letters() {
         return this.#letters;
     }
 
-    set letters(letters: Letter[]){
+    set letters(letters: Letter[]) {
         this.#letters = letters;
     }
 
@@ -54,4 +54,47 @@ export class Word {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+ //Prueba para colorear correctamente las letras
+
+    /* check(otherWord: Word) {
+        otherWord.letters = otherWord.getWordLetters()
+        let checkedLetters: string[] = [];
+        //debugger
+        for (let i = 0; i < MAX_WORD_SIZE; i++) {
+            if (this.#word.includes(otherWord.word[i]) && !checkedLetters.includes(otherWord.word[i])) {
+
+                checkedLetters.push(otherWord.word[i])
+
+                let ocurrencesInSecretWord = (this.#word.match(new RegExp(otherWord.letters[i].letter, "g")) || []).length;
+                let ocurrencesInUserWord = (otherWord.word.match(new RegExp(otherWord.letters[i].letter, "g")) || []).length;
+
+                let coincidences = Math.min(ocurrencesInSecretWord, ocurrencesInUserWord);
+
+                for (let j = i; j < MAX_WORD_SIZE; j++) { //j = i por ser la pos en la que aparece una ocurrencia - MIRAR RECORRIDO!!!
+                    if (this.#letters[j].letter == otherWord.letters[j].letter) {
+                        otherWord.letters[j].state = "rightLetter";
+                        coincidences--;
+                        j = i;
+                    } else {
+                        if (coincidences == 0) {
+                            otherWord.letters[j].state = "wrongLetter"
+                        } else {
+                            otherWord.letters[j].state = "misplacedLetter";
+                        }
+                    }
+                    if(coincidences == 0 || )
+                }
+            }
+        }
+    } */
 }

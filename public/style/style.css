@@ -101,8 +101,8 @@ h1 {
     min-width: fit-content;
 }
 
-.cell-orange {
-    background-color: orangered;
+.cell-yellow {
+    background-color: yellow;
     color: white;
 }
 
@@ -120,3 +120,14 @@ h1 {
     background-color: #787C7E;
     color: #ffffff;
 }
+
+.keyDiscovered{
+    background-color: yellow;
+    color: #ffffff;
+}
+
+.keyCorrect{
+    background-color: green;
+    color: #ffffff;
+}
+

@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Word_word, _Word_letters;
-import { MAX_WORD_SIZE } from "./env.js";
+import { MAX_WORD_SIZE } from "../env.js";
 import { Letter } from "./Letter.js";
 export class Word {
     constructor(word) {

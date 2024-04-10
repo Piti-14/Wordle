@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Key_gameInstance;
-import { VALID_LETTER_CODES } from "./env.js";
+import { VALID_LETTER_CODES } from "../env.js";
 export class Key {
     constructor(game) {
         _Key_gameInstance.set(this, void 0);
@@ -26,7 +26,6 @@ export class Key {
         if (code == "Backspace") {
             __classPrivateFieldGet(this, _Key_gameInstance, "f").backspacePressed();
         }
-        // this.#userInterface.changeBackgroundKeyColor(code);
     }
 }
 _Key_gameInstance = new WeakMap();

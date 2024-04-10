@@ -22,7 +22,7 @@ export class Board {
                 color = "cell-green";
             } 
             if(userWord.letters[i].state == "misplacedLetter") {
-                color = "cell-orange"
+                color = "cell-yellow"
             }
             
             children[i].classList.add(color);
@@ -30,14 +30,30 @@ export class Board {
 
     }
 
-    changeBackgroundKeyColor(code: string) {
-        const keys: any = document.getElementsByClassName("key");
+    changeBackgroundKeyColor(userWord: Word) {
+        const keys = document.getElementsByClassName("key");
 
         for (let key of keys) {
-            if (key.value == code && code !== "Enter" && code !== "Backspace") {
-                key.classList.add("keyPressed");
-            }
-        }
+            userWord.letters.forEach(letter => 
+                {
+                    if (key.innerHTML == letter.letter && letter.letter !== "Enter" && letter.letter !== "Backspace") {
+                        let keyColor: string = "";
+
+                        switch(letter.state){
+                            case "wrongLetter":
+                                keyColor = "keyPressed"
+                                break;
+                            case "rightLetter":
+                                keyColor = "keyCorrect"
+                                break;
+                            case "misplacedLetter":
+                                keyColor = "keyDiscovered"
+                        }
+                        key.classList.add(keyColor);
+                    }
+                }
+            )
+        }      
     }
 
     win(){ location.assign("/winner"); }

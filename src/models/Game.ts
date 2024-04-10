@@ -68,9 +68,7 @@ export class Game {
         if (this.#userWord.word.length >= MAX_WORD_SIZE) {
             if(this.#secretWord.wordIsRight(this.#userWord.word)){
                 this.#userInterface.win();
-            }
-
-            if (this.turn == MAX_ATTEMPTS) {
+            } else if (this.turn >= MAX_ATTEMPTS) {
                 this.#userInterface.lose();
             }
 
@@ -95,6 +93,6 @@ export class Game {
     updateLetterColors(){
         this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#userWord)
 
-        //this.#userInterface.changeBackgroundKeyColor()
+        this.#userInterface.changeBackgroundKeyColor(this.#userWord)
     } 
 }

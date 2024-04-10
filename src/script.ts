@@ -1,9 +1,9 @@
-import { Word } from "../models/Word.js";
-import { Game } from "../models/Game.js";
-import { Board } from "./Board.js";
-import { WORDS } from "../env.js";
-import { WordPicker } from "./WordPicker.js";
-import { Key } from "../models/Key.js";
+import { Word } from "./models/Word.js";
+import { Game } from "./models/Game.js";
+import { Board } from "./controllers/Board.js";
+import { WORDS } from "./env.js";
+import { WordPicker } from "./controllers/WordPicker.js";
+import { Key } from "./models/Key.js";
 
 
 const secretWord = new Word(WordPicker.pickRandomWord(WORDS));
