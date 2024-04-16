@@ -48,9 +48,24 @@ export class Word {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherWord.letters[i].letter) {
                     otherWord.letters[i].state = "rightLetter";
+                    otherWord.letters[i].checked = true;
+                    __classPrivateFieldGet(this, _Word_letters, "f")[i].checked = true;
                 }
                 else {
                     otherWord.letters[i].state = "misplacedLetter";
+                }
+            }
+        }
+        for (let i = MAX_WORD_SIZE - 1; i >= 0; i--) {
+            if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter.includes(otherWord.word[i])) {
+                for (let j = MAX_WORD_SIZE - 1; j >= 0; j--) {
+                    if (otherWord.letters[i].checked)
+                        continue;
+                    if (otherWord.letters[i].letter == __classPrivateFieldGet(this, _Word_letters, "f")[j].letter) {
+                        (__classPrivateFieldGet(this, _Word_letters, "f")[j].checked) ?
+                            otherWord.letters[i].state = "wrongLetter" :
+                            otherWord.letters[i].state = "misplacedLetter";
+                    }
                 }
             }
         }

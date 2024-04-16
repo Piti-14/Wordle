@@ -48,8 +48,26 @@ export class Word {
             if(this.#word.includes(otherWord.word[i])){
                 if(this.#letters[i].letter == otherWord.letters[i].letter){
                     otherWord.letters[i].state = "rightLetter";
+                    
+                    otherWord.letters[i].checked = true;
+                    this.#letters[i].checked = true;
                 } else {
                     otherWord.letters[i].state = "misplacedLetter";
+                }
+            }
+        }
+
+        for(let i = MAX_WORD_SIZE - 1; i >= 0; i--){
+            if(this.#letters[i].letter.includes(otherWord.word[i])){
+                for (let j = MAX_WORD_SIZE - 1; j >= 0; j--) {
+                    
+                    if(otherWord.letters[i].checked) continue
+
+                    if(otherWord.letters[i].letter == this.#letters[j].letter){
+                        (this.#letters[j].checked)? 
+                            otherWord.letters[i].state = "wrongLetter" : 
+                            otherWord.letters[i].state = "misplacedLetter";
+                    }
                 }
             }
         }
