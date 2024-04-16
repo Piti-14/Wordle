@@ -3,7 +3,7 @@ import { Game } from "./models/Game.js";
 import { Board } from "./controllers/Board.js";
 import { WORDS } from "./env.js";
 import { WordPicker } from "./controllers/WordPicker.js";
-import { Key } from "./models/Key.js";
+import { Keyboard } from "./models/Keyboard.js";
 
 
 const secretWord = new Word(WordPicker.pickRandomWord(WORDS));
@@ -13,7 +13,7 @@ const game: Game = new Game(secretWord, userWord, userInterface);
 
 console.log(secretWord);
 
-const keyboard: Key = new Key(game);
+const keyboard: Keyboard = new Keyboard(game);
 
 Array.from(document.getElementsByClassName("key")).forEach(element =>
     element.addEventListener("click", (e) => { keyboard.newKeyPressed((<HTMLButtonElement>e.target).value); }));

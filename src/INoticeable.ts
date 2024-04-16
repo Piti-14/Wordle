@@ -1,0 +1,3 @@
+interface INoticeable {
+    update(): void;
+}
