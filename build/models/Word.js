@@ -46,7 +46,6 @@ export class Word {
     }
     check(otherWord) {
         otherWord.letters = otherWord.getWordLetters();
-        debugger;
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherWord.letters[i].letter) {
@@ -59,15 +58,21 @@ export class Word {
                 }
             }
         }
+        debugger;
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
-            if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter.includes(otherWord.word[i])) {
+            if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 for (let j = 0; j < MAX_WORD_SIZE; j++) {
                     if (otherWord.letters[i].checked)
                         break;
                     if (otherWord.letters[i].letter == __classPrivateFieldGet(this, _Word_letters, "f")[j].letter) {
-                        (__classPrivateFieldGet(this, _Word_letters, "f")[j].checked) ?
-                            otherWord.letters[i].state = "wrongLetter" :
+                        if (__classPrivateFieldGet(this, _Word_letters, "f")[j].checked) {
+                            otherWord.letters[i].state = "wrongLetter";
+                        }
+                        else {
                             otherWord.letters[i].state = "misplacedLetter";
+                            __classPrivateFieldGet(this, _Word_letters, "f")[j].checked = true;
+                            break;
+                        }
                     }
                 }
             }

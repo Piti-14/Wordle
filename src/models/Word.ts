@@ -63,17 +63,20 @@ export class Word {
             }
         }
         
-        debugger
         for(let i = 0; i < MAX_WORD_SIZE; i++){
-            if(this.#letters[i].letter.includes(otherWord.word[i])){
+            if(this.#word.includes(otherWord.word[i])){
                 for (let j = 0; j < MAX_WORD_SIZE; j++) {
                     
                     if(otherWord.letters[i].checked) break;
 
                     if(otherWord.letters[i].letter == this.#letters[j].letter){
-                        (this.#letters[j].checked)? 
-                            otherWord.letters[i].state = "wrongLetter" : 
+                        if(this.#letters[j].checked){
+                            otherWord.letters[i].state = "wrongLetter";
+                        } else {
                             otherWord.letters[i].state = "misplacedLetter";
+                            this.#letters[j].checked = true;
+                            break;
+                        }
                     }
                 }
             }
