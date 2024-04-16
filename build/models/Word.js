@@ -38,19 +38,42 @@ export class Word {
         }
         return letters;
     }
+    clearChecks() {
+        __classPrivateFieldGet(this, _Word_letters, "f").forEach(letter => letter.checked = false);
+    }
     wordIsRight(userWord) {
         return (userWord == __classPrivateFieldGet(this, _Word_word, "f"));
     }
     check(otherWord) {
         otherWord.letters = otherWord.getWordLetters();
-        //debugger
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherWord.letters[i].letter) {
                     otherWord.letters[i].state = "rightLetter";
+                    otherWord.letters[i].checked = true;
+                    __classPrivateFieldGet(this, _Word_letters, "f")[i].checked = true;
                 }
                 else {
                     otherWord.letters[i].state = "misplacedLetter";
+                }
+            }
+        }
+        debugger;
+        for (let i = 0; i < MAX_WORD_SIZE; i++) {
+            if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
+                for (let j = 0; j < MAX_WORD_SIZE; j++) {
+                    if (otherWord.letters[i].checked)
+                        break;
+                    if (otherWord.letters[i].letter == __classPrivateFieldGet(this, _Word_letters, "f")[j].letter) {
+                        if (__classPrivateFieldGet(this, _Word_letters, "f")[j].checked) {
+                            otherWord.letters[i].state = "wrongLetter";
+                        }
+                        else {
+                            otherWord.letters[i].state = "misplacedLetter";
+                            __classPrivateFieldGet(this, _Word_letters, "f")[j].checked = true;
+                            break;
+                        }
+                    }
                 }
             }
         }

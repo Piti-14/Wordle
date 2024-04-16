@@ -72,6 +72,7 @@ export class Game {
                 this.#userInterface.lose();
             }
 
+            this.#secretWord.clearChecks();
             this.#secretWord.check(this.#userWord);
             
             this.updateLetterColors();
