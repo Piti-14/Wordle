@@ -38,12 +38,15 @@ export class Word {
         }
         return letters;
     }
+    clearChecks() {
+        __classPrivateFieldGet(this, _Word_letters, "f").forEach(letter => letter.checked = false);
+    }
     wordIsRight(userWord) {
         return (userWord == __classPrivateFieldGet(this, _Word_word, "f"));
     }
     check(otherWord) {
         otherWord.letters = otherWord.getWordLetters();
-        //debugger
+        debugger;
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter == otherWord.letters[i].letter) {
@@ -56,11 +59,11 @@ export class Word {
                 }
             }
         }
-        for (let i = MAX_WORD_SIZE - 1; i >= 0; i--) {
+        for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_letters, "f")[i].letter.includes(otherWord.word[i])) {
-                for (let j = MAX_WORD_SIZE - 1; j >= 0; j--) {
+                for (let j = 0; j < MAX_WORD_SIZE; j++) {
                     if (otherWord.letters[i].checked)
-                        continue;
+                        break;
                     if (otherWord.letters[i].letter == __classPrivateFieldGet(this, _Word_letters, "f")[j].letter) {
                         (__classPrivateFieldGet(this, _Word_letters, "f")[j].checked) ?
                             otherWord.letters[i].state = "wrongLetter" :

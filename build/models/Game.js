@@ -72,6 +72,7 @@ export class Game {
             else if (this.turn >= MAX_ATTEMPTS) {
                 __classPrivateFieldGet(this, _Game_userInterface, "f").lose();
             }
+            __classPrivateFieldGet(this, _Game_secretWord, "f").clearChecks();
             __classPrivateFieldGet(this, _Game_secretWord, "f").check(__classPrivateFieldGet(this, _Game_userWord, "f"));
             this.updateLetterColors();
             __classPrivateFieldSet(this, _Game_attempt, (_a = __classPrivateFieldGet(this, _Game_attempt, "f"), _a++, _a), "f");

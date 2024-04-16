@@ -1,8 +1,9 @@
+import { json } from "express";
 import { MAX_WORD_SIZE } from "../env.js";
 import { Letter } from "./Letter.js";
 
 export class Word {
-
+    
     #word: string;
     #letters: Letter[];
 
@@ -36,6 +37,11 @@ export class Word {
 
         return letters;
     }
+    
+    clearChecks() {
+        this.#letters.forEach(letter => letter.checked = false);
+    }
+
 
     wordIsRight(userWord: string): boolean {
         return (userWord == this.#word)
@@ -43,7 +49,7 @@ export class Word {
 
     check(otherWord: Word) { 
         otherWord.letters = otherWord.getWordLetters()
-        //debugger
+        
         for(let i = 0; i < MAX_WORD_SIZE; i++){
             if(this.#word.includes(otherWord.word[i])){
                 if(this.#letters[i].letter == otherWord.letters[i].letter){
@@ -56,12 +62,13 @@ export class Word {
                 }
             }
         }
-
-        for(let i = MAX_WORD_SIZE - 1; i >= 0; i--){
+        
+        debugger
+        for(let i = 0; i < MAX_WORD_SIZE; i++){
             if(this.#letters[i].letter.includes(otherWord.word[i])){
-                for (let j = MAX_WORD_SIZE - 1; j >= 0; j--) {
+                for (let j = 0; j < MAX_WORD_SIZE; j++) {
                     
-                    if(otherWord.letters[i].checked) continue
+                    if(otherWord.letters[i].checked) break;
 
                     if(otherWord.letters[i].letter == this.#letters[j].letter){
                         (this.#letters[j].checked)? 
