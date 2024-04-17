@@ -1,4 +1,5 @@
 import { VALID_LETTER_CODES } from "../env.js";
+import { INoticeable } from "../INoticeable.js";
 import { Game } from "./Game.js";
 
 export class Keyboard{
@@ -10,6 +11,17 @@ export class Keyboard{
     constructor(game: Game){
         this.#gameInstance = game;
         this.#subscribers = [];
+        this.addSubscriber(game);
+    }
+
+    initKeyboard(){
+        Array.from(document.getElementsByClassName("key")).forEach(element =>
+            element.addEventListener("click", (e) => { 
+                this.newKeyPressed((<HTMLButtonElement>e.target).value); }));
+        
+        document.addEventListener("keydown", (e) => {
+            this.newKeyPressed(e.code);
+        });
     }
 
     newKeyPressed(code: string): void {
@@ -22,7 +34,7 @@ export class Keyboard{
 
     notifySubscribers() {
         for(let sub of this.#subscribers){
-            sub.update();
+            sub.notifyLetter("code");
         }
     }
 

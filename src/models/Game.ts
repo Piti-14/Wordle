@@ -1,21 +1,31 @@
 import { Board } from "../controllers/Board.js";
-import { MAX_ATTEMPTS, MAX_WORD_SIZE, VALID_LETTER_CODES } from "../env.js";
+import { MAX_ATTEMPTS, MAX_WORD_SIZE } from "../env.js";
+import { IGame } from "../IGame.js";
+import { INoticeable } from "../INoticeable.js";
 import { Word } from "./Word.js";
 
-export class Game {
+export class Game implements INoticeable, IGame{
 
     #secretWord: Word
     #userWord: Word
+    #gameInterface: Board
     #attempt: number
     #actualPosition: number
-    #userInterface: Board
-
-    constructor(secretWord: Word, userWord: Word, userInterface: Board) {
+    
+    constructor(secretWord: Word, userWord: Word, gameInterface: Board) {
         this.#secretWord = secretWord;
         this.#userWord = userWord;
+        this.#gameInterface = gameInterface;
         this.#attempt = 1;
         this.#actualPosition = 0;
-        this.#userInterface = userInterface;
+    }
+    
+    notifyLetter(code: string): void {
+        throw new Error("Method not implemented.");
+    }
+
+    notifyKey(name: string): void {
+        throw new Error("Method not implemented.");
     }
 
     get secretWord() {
@@ -46,11 +56,11 @@ export class Game {
         this.#actualPosition = num;
     }
 
-    get interface() {
-        return this.#userInterface;
+    get gameInterface() {
+        return this.#gameInterface;
     }
-    set interface(i) {
-        this.#userInterface = i;
+    set gameInterface(i) {
+        this.#gameInterface = i;
     }
 
     newLetter(code: string): void {
@@ -58,7 +68,7 @@ export class Game {
             
             let letter: string = (code == "Semicolon")? "Ñ" : code.split("y")[1];
         
-            this.#userInterface.writeLetter(this.turn, this.actualPosition, letter);
+            this.#gameInterface.writeLetter(this.turn, this.actualPosition, letter);
             this.#actualPosition++;
             this.#userWord.word += letter;
         }
@@ -67,9 +77,9 @@ export class Game {
     enterPressed(): void {
         if (this.#userWord.word.length >= MAX_WORD_SIZE) {
             if(this.#secretWord.wordIsRight(this.#userWord.word)){
-                this.#userInterface.win();
+                this.#gameInterface.win();
             } else if (this.turn >= MAX_ATTEMPTS) {
-                this.#userInterface.lose();
+                this.#gameInterface.lose();
             }
 
             this.#secretWord.clearChecks();
@@ -87,13 +97,13 @@ export class Game {
         if (this.#actualPosition > 0) {
             this.#userWord.word = this.#userWord.word.slice(0, -1)
             this.#actualPosition -= 1;
-            this.#userInterface.deleteLetter(this.#attempt, this.#actualPosition);
+            this.#gameInterface.deleteLetter(this.#attempt, this.#actualPosition);
         }
     }
 
     updateLetterColors(){
-        this.#userInterface.changeBackgroundCellColor(this.#attempt, this.#userWord)
+        this.#gameInterface.changeBackgroundCellColor(this.#attempt, this.#userWord)
 
-        this.#userInterface.changeBackgroundKeyColor(this.#userWord)
+        this.#gameInterface.changeBackgroundKeyColor(this.#userWord)
     } 
 }

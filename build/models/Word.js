@@ -58,7 +58,6 @@ export class Word {
                 }
             }
         }
-        debugger;
         for (let i = 0; i < MAX_WORD_SIZE; i++) {
             if (__classPrivateFieldGet(this, _Word_word, "f").includes(otherWord.word[i])) {
                 for (let j = 0; j < MAX_WORD_SIZE; j++) {
